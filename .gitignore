@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Node
+node_modules/
+
+# Vercel
+.vercel/
+
+# Build/temp artifacts
+_*.png
+*.log
+/tmp/

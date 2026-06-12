@@ -1,0 +1,14 @@
+{
+  "name": "AXUM Corredores de Seguros",
+  "short_name": "AXUM",
+  "description": "Gestión estratégica de riesgos y seguros para empresas en Perú. Confianza para entender, criterio para decidir.",
+  "lang": "es-PE",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#187098",
+  "icons": [
+    { "src": "/assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
