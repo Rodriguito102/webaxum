@@ -14,7 +14,7 @@ const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
 /* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
-const ASSET_V = '4';
+const ASSET_V = '5';
 
 /* logical path -> real url (adds .html, home stays /) */
 function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
@@ -145,7 +145,7 @@ function pageHero({ crumb, eyebrow, h1, lead, extra }) {
 
 /* ---------- HTML shell ---------- */
 function shell(p) {
-  const jsonld = (p.jsonld || []).map(j =>
+  const jsonld = [orgLd(), ...(p.jsonld || [])].map(j =>
     `<script type="application/ld+json">\n${JSON.stringify(j, null, 2)}\n</script>`).join('\n');
   const canonical = SITE + L(p.canonical);
   return `<!doctype html>
@@ -202,6 +202,27 @@ function breadcrumb(items) {
     "itemListElement": items.map((it, i) => ({
       "@type": "ListItem", "position": i + 1, "name": it[0], "item": SITE + L(it[1])
     }))
+  };
+}
+function orgLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    "name": "AXUM Corredores de Seguros",
+    "alternateName": "AXUM",
+    "url": SITE + "/",
+    "logo": SITE + "/assets/img/logo-axum.png",
+    "image": OG,
+    "description": "Corredores de seguros en Perú especializados en auditoría de riesgos, ingeniería de contratos de seguro, eficiencia de capital y defensa en siniestros para empresas.",
+    "email": EMAIL,
+    "telephone": "+51974789855",
+    "address": { "@type": "PostalAddress", "addressLocality": "Lima", "addressCountry": "PE" },
+    "areaServed": { "@type": "Country", "name": "Perú" },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00", "closes": "18:00"
+    }
   };
 }
 function serviceLd(name, desc, url) {
