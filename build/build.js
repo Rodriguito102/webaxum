@@ -49,13 +49,14 @@ function header(active) {
     `<li><a href="${L(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a></li>`).join('\n        ');
   const mlinks = NAV.map(([t, h]) => `<li><a href="${L(h)}">${t}</a></li>`).join('\n    ');
   return `<header class="site-header">
+  <div class="topbar">Primero confianza, luego decisiones.</div>
   <div class="container">
     <a class="brand" href="/" aria-label="AXUM Corredores de Seguros — Inicio">${logo}</a>
     <nav class="nav" aria-label="Navegación principal">
       <ul class="nav-links">
         ${links}
       </ul>
-      <a class="btn btn-primary nav-cta" href="${L('/contacto')}">Dialoguemos ${ARROW}</a>
+      <a class="btn btn-gold-outline nav-cta" href="${L('/contacto')}">Dialoguemos ${ARROW}</a>
     </nav>
     <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
   </div>

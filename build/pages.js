@@ -63,12 +63,15 @@ module.exports = function (ctx) {
 
   /* ===================== HOME ===================== */
   const homeMain = `<section class="hero" aria-label="Presentación">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <img src="/assets/img/hero.jpg" alt="" aria-hidden="true">
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="container">
     <div class="hero-grid2">
       <div class="hero-copy">
         <span class="eyebrow hero-eyebrow fade-up">Corredores de Seguros · Perú</span>
-        <h1 class="fade-up">La decisión es <span class="accent">el primer seguro</span></h1>
+        <h1 class="fade-up hero-title-upper">La decisión es <span class="accent">el primer seguro</span></h1>
         <p class="hero-sub fade-up">Porque lo que hoy parece un detalle, mañana puede cambiar un resultado.</p>
         <div class="hero-actions fade-up">
           <a class="btn btn-primary btn-lg" href="${L('/contacto')}">Agendar conversación ${ARROW}</a>
@@ -76,19 +79,30 @@ module.exports = function (ctx) {
         </div>
       </div>
       <div class="hero-visual fade-up">
-        <div class="hero-frame">
-          <img src="/assets/img/hero.jpg" alt="Análisis técnico de riesgos y contratos de seguro — AXUM Corredores de Seguros" width="760" height="855">
-        </div>
-        <div class="hero-badge">
+        <div class="hero-card">
           <span class="hb-ic">${I.shield}</span>
-          <div><b>Método AXUM</b><span>Entender · Priorizar · Decidir</span></div>
+          <b>Método AXUM</b>
+          <span class="hero-card-sub">Entender · Priorizar · Decidir</span>
+          <p>Un proceso estructurado para identificar riesgos, priorizar decisiones y proteger lo que más valor tiene para su empresa.</p>
         </div>
       </div>
     </div>
     <div class="hero-pillars fade-up">
-      <div class="pillar"><span class="num">01</span><h3>Primero comprender</h3><p>Lo esencial suele permanecer oculto.</p></div>
-      <div class="pillar"><span class="num">02</span><h3>Luego decidir</h3><p>No confundimos información con entendimiento.</p></div>
-      <div class="pillar"><span class="num">03</span><h3>Proteger valor</h3><p>Lo valioso merece mejores decisiones.</p></div>
+      <div class="pillar">
+        <span class="num">01</span>
+        <h3>Primero comprender</h3>
+        <p>Lo esencial suele permanecer oculto.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">02</span>
+        <h3>Luego decidir</h3>
+        <p>No confundimos información con entendimiento.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">03</span>
+        <h3>Proteger valor</h3>
+        <p>Lo valioso merece mejores decisiones.</p>
+      </div>
     </div>
   </div>
 </section>
