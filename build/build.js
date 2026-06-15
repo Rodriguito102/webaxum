@@ -14,7 +14,7 @@ const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
 /* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
-const ASSET_V = '3';
+const ASSET_V = '4';
 
 /* logical path -> real url (adds .html, home stays /) */
 function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
