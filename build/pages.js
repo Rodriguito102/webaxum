@@ -1,6 +1,6 @@
 /* AXUM — page content definitions (light/corporate theme). */
 module.exports = function (ctx) {
-  const { SITE, OG, WA, ARROW, I, L, shell, cta, pageHero, breadcrumb, serviceLd, articleLd, writePage } = ctx;
+  const { SITE, OG, WA, ARROW, I, L, shell, cta, pageHero, breadcrumb, serviceLd, articleLd, faqLd, writePage } = ctx;
 
   /* ---------- content sub-components ---------- */
   const solCard = (tag, title, desc, href, d) => `<article class="card" data-reveal data-d="${d}">
@@ -10,8 +10,8 @@ module.exports = function (ctx) {
         <a class="link-arrow card-link" href="${L(href)}">Ver solución ${ARROW}</a>
       </article>`;
 
-  const solIconCard = (icon, tag, title, desc, href, d) => `<article class="card" data-reveal data-d="${d}">
-        <span class="card-icon">${icon}</span>
+  const solNumCard = (n, tag, title, desc, href, d) => `<article class="card" data-reveal data-d="${d}">
+        <span class="card-num">${n}</span>
         <span class="tag">${tag}</span>
         <h3>${title}</h3>
         <p>${desc}</p>
@@ -54,56 +54,76 @@ module.exports = function (ctx) {
 
   const bullets = (arr) => `<ul class="bullets">${arr.map(b => `<li>${b}</li>`).join('')}</ul>`;
 
+  const faqSection = (items, title) => `<section class="section-alt" aria-labelledby="faq-h">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow center">Preguntas frecuentes</span>
+      <h2 class="h2" id="faq-h">${title || 'Preguntas frecuentes'}</h2>
+    </div>
+    <div class="faq" data-reveal>
+      ${items.map(([q, a]) => `<details class="faq-item"><summary>${q}</summary><div class="faq-a"><p>${a}</p></div></details>`).join('\n      ')}
+    </div>
+  </div>
+</section>`;
+
   const solStrip = `<div class="grid grid-4">
-      ${solCard('Análisis previo', 'Auditoría de riesgos', 'Lo que hoy parece un detalle, mañana reescribe sus resultados.', '/soluciones/auditoria-de-riesgos', 1)}
-      ${solCard('Diseño a medida', 'Ingeniería de contratos', 'La póliza responde a la naturaleza de su operación.', '/soluciones/ingenieria-de-contratos', 2)}
-      ${solCard('Optimización TCOR', 'Eficiencia de capital', 'Capturamos costos no asegurables para sumar rentabilidad a su caja.', '/soluciones/eficiencia-de-capital', 3)}
-      ${solCard('Respuesta estructural', 'Defensa en siniestros', 'Representación técnica experta en el momento de la verdad.', '/soluciones/defensa-en-siniestros', 4)}
+      ${solNumCard('01', 'Análisis previo', 'Auditoría de riesgos', 'Lo que hoy parece un detalle, mañana reescribe sus resultados.', '/soluciones/auditoria-de-riesgos', 1)}
+      ${solNumCard('02', 'Diseño a medida', 'Ingeniería de contratos', 'La póliza responde a la naturaleza de su operación.', '/soluciones/ingenieria-de-contratos', 2)}
+      ${solNumCard('03', 'Optimización TCOR', 'Eficiencia de capital', 'Capturamos costos no asegurables para sumar rentabilidad a su caja.', '/soluciones/eficiencia-de-capital', 3)}
+      ${solNumCard('04', 'Respuesta estructural', 'Defensa en siniestros', 'Representación técnica experta en el momento de la verdad.', '/soluciones/defensa-en-siniestros', 4)}
+    </div>`;
+
+  /* Sectores — two-column layout (Especialidades | Segmentos), all with side imagery */
+  const sectorSplit = (n, title, tagline, href, img, alt, verb, d) => `<a class="sector-split" href="${L(href)}" data-reveal data-d="${d}">
+        <div class="ss-body">
+          <span class="ss-num">${n}</span>
+          <h3>${title}</h3>
+          <p>${tagline}</p>
+          <span class="ss-link link-arrow">${verb} ${ARROW}</span>
+        </div>
+        <span class="ss-media"><img src="${img}" alt="${alt}" loading="lazy" width="640" height="480"></span>
+      </a>`;
+
+  const sectorsBlock = `<div class="sectors-2col">
+      <span class="eyebrow ss-head" data-reveal>Especialidades</span>
+      <span class="eyebrow ss-head" data-reveal>Segmentos</span>
+      ${sectorSplit('01', 'Minería', 'La tierra se mueve. Su balance, no.', '/sectores/mineria', '/assets/img/mineria.webp', 'Operación minera — gestión de riesgos AXUM', 'Ver sector', 1)}
+      ${sectorSplit('01', 'Corporativo', 'La exposición crece y la información falta.', '/sectores/corporativo', '/assets/img/corporativo.webp', 'Edificios corporativos — gestión de riesgos empresariales', 'Ver segmento', 1)}
+      ${sectorSplit('02', 'Energía', 'El entorno es incierto. La continuidad del suministro, una constante.', '/sectores/energia', '/assets/img/energia.webp', 'Infraestructura de energía — continuidad del suministro', 'Ver sector', 2)}
+      ${sectorSplit('02', 'PYMES', 'Un error para perder el resultado de todo el año.', '/sectores/pymes', '/assets/img/pymes.webp', 'Pequeña y mediana empresa — protección con criterio', 'Ver segmento', 2)}
+      ${sectorSplit('03', 'Manufactura y Construcción', 'Los desvíos aparecen. Las metas se mantienen.', '/sectores/manufactura-construccion', '/assets/img/manufactura.webp', 'Planta de manufactura y construcción', 'Ver sector', 3)}
+      ${sectorSplit('03', 'Agroindustria', 'El clima es variable. La exposición, permanente.', '/sectores/agroindustria', '/assets/img/agroindustria.webp', 'Agroindustria — del campo a la exportación', 'Ver segmento', 3)}
     </div>`;
 
   /* ===================== HOME ===================== */
+  const homeFaq = [
+    ['¿Qué es un corredor de seguros y en qué se diferencia de una aseguradora?', 'La aseguradora emite y asume el riesgo; el corredor lo representa a usted. AXUM asesora de forma independiente: auditamos su exposición, diseñamos la protección y lo acompañamos en el siniestro, defendiendo sus intereses ante el mercado.'],
+    ['¿AXUM trabaja con todas las aseguradoras?', 'Como corredores independientes, intermediamos ante el mercado asegurador para estructurar la mejor protección según su operación, sin atarnos a una sola compañía.'],
+    ['¿Para qué tipo de empresas trabajan?', 'Acompañamos a empresas de distintos sectores y tamaños —de corporativos y operaciones de minería, energía o agroindustria a PYMES— que necesitan convertir el riesgo en decisiones con criterio.'],
+    ['¿La primera conversación tiene costo?', 'No. La primera conversación es técnica y sin compromiso: entendemos su operación y la decisión que tiene entre manos antes de cualquier propuesta.']
+  ];
+
   const homeMain = `<section class="hero" aria-label="Presentación">
-  <div class="hero-bg">
-    <img src="/assets/img/hero.jpg" alt="" aria-hidden="true">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="/assets/img/hero.webp" alt="">
     <div class="hero-bg-overlay"></div>
   </div>
   <div class="container">
-    <div class="hero-grid2">
-      <div class="hero-copy">
-        <span class="eyebrow hero-eyebrow fade-up">Corredores de Seguros · Perú</span>
-        <h1 class="fade-up hero-title-upper">La decisión es <span class="accent">el primer seguro</span></h1>
-        <p class="hero-sub fade-up">Porque lo que hoy parece un detalle, mañana puede cambiar un resultado.</p>
-        <div class="hero-actions fade-up">
-          <a class="btn btn-primary btn-lg" href="${L('/contacto')}">Agendar conversación ${ARROW}</a>
-          <a class="btn btn-outline btn-lg" href="${L('/nosotros')}">Cómo pensamos</a>
-        </div>
+    <div class="hero-inner">
+      <span class="eyebrow hero-eyebrow fade-up">Corredores de Seguros · Perú</span>
+      <h1 class="hero-title fade-up">La decisión es <em>el primer seguro</em></h1>
+      <p class="hero-sub fade-up">Porque lo que hoy parece un detalle, mañana puede cambiar un resultado.</p>
+      <div class="hero-actions fade-up">
+        <a class="btn btn-primary btn-lg" href="${L('/contacto')}">Agendar conversación ${ARROW}</a>
+        <a class="btn btn-outline btn-lg" href="${L('/nosotros')}">Cómo pensamos</a>
       </div>
-      <div class="hero-visual fade-up">
-        <div class="hero-card">
-          <span class="hb-ic">${I.shield}</span>
-          <b>Método AXUM</b>
-          <span class="hero-card-sub">Entender · Priorizar · Decidir</span>
-          <p>Un proceso estructurado para identificar riesgos, priorizar decisiones y proteger lo que más valor tiene para su empresa.</p>
-        </div>
-      </div>
+      <p class="hero-note fade-up">Gestión estratégica de riesgos para empresas · Lima, Perú</p>
     </div>
-    <div class="hero-pillars fade-up">
-      <div class="pillar">
-        <span class="num">01</span>
-        <h3>Primero comprender</h3>
-        <p>Lo esencial suele permanecer oculto.</p>
-      </div>
-      <div class="pillar">
-        <span class="num">02</span>
-        <h3>Luego decidir</h3>
-        <p>No confundimos información con entendimiento.</p>
-      </div>
-      <div class="pillar">
-        <span class="num">03</span>
-        <h3>Proteger valor</h3>
-        <p>Lo valioso merece mejores decisiones.</p>
-      </div>
-    </div>
+    <ol class="hero-index fade-up">
+      <li><span class="hx-n">01</span><span class="hx-t"><b>Entender</b><span>Lo esencial suele permanecer oculto.</span></span></li>
+      <li><span class="hx-n">02</span><span class="hx-t"><b>Priorizar</b><span>No confundimos información con entendimiento.</span></span></li>
+      <li><span class="hx-n">03</span><span class="hx-t"><b>Decidir</b><span>Lo valioso merece mejores decisiones.</span></span></li>
+    </ol>
   </div>
 </section>
 
@@ -137,7 +157,7 @@ module.exports = function (ctx) {
     <div class="section-head" data-reveal>
       <span class="eyebrow">Soluciones</span>
       <h2 class="h2" id="sol-h">Intermediación estratégica ante el mercado asegurador</h2>
-      <p class="lead">…pero nuestra visión no se agota ahí.</p>
+      <p class="lead">Nuestra visión no se agota ahí.</p>
     </div>
     ${solStrip}
   </div>
@@ -150,16 +170,7 @@ module.exports = function (ctx) {
       <h2 class="h2" id="sec-h">Detrás de cada activo, siempre hay personas tomando decisiones</h2>
       <p class="lead">Nos ocupamos de asegurar a ambos.</p>
     </div>
-    <div class="grid grid-3">
-      ${sectorCard('/sectores/mineria', '/assets/img/mineria.webp', 'Operación minera — gestión de riesgos AXUM', 'Minería', 'La tierra se mueve. Su balance, no.', 1)}
-      ${sectorCard('/sectores/energia', '/assets/img/energia.webp', 'Infraestructura de energía — continuidad del suministro', 'Energía', 'El entorno es incierto. La continuidad del suministro, una constante.', 2)}
-      ${sectorCard('/sectores/manufactura-construccion', '/assets/img/manufactura.webp', 'Planta de manufactura y construcción', 'Manufactura y Construcción', 'Los desvíos aparecen. Las metas se mantienen.', 3)}
-    </div>
-    <div class="grid grid-3" style="margin-top:.5rem;">
-      ${segment('Corporativo', 'La exposición crece y la información falta.', '/sectores/corporativo', 1)}
-      ${segment('PYMES', 'Un error para perder el resultado de todo el año.', '/sectores/pymes', 2)}
-      ${segment('Agroindustria', 'El clima es variable. La exposición, permanente.', '/sectores/agroindustria', 3)}
-    </div>
+    ${sectorsBlock}
   </div>
 </section>
 
@@ -204,7 +215,8 @@ module.exports = function (ctx) {
   </div>
 </section>
 
-${cta('Si estás evaluando una decisión importante, vale la pena entender el riesgo antes.')}`;
+${faqSection(homeFaq, 'Preguntas frecuentes')}
+${cta('Sabemos el peso que lleva cada decisión. Usted conoce su operación y su exposición; nosotros, la ingeniería del mercado para estructurarla. <em class="accent">Conversemos.</em>')}`;
 
   writePage('index.html', shell({
     canonical: '/',
@@ -214,6 +226,7 @@ ${cta('Si estás evaluando una decisión importante, vale la pena entender el ri
     ogTitle: 'AXUM Corredores de Seguros | Gestión de riesgos para empresas en Perú',
     ogDesc: 'Asesoría estratégica en seguros y gestión de riesgos para empresas en Perú. La decisión es el primer seguro.',
     active: '/',
+    preloadImg: '/assets/img/hero.webp',
     main: homeMain,
     jsonld: [{
       "@context": "https://schema.org",
@@ -232,7 +245,7 @@ ${cta('Si estás evaluando una decisión importante, vale la pena entender el ri
         },
         { "@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "AXUM Corredores de Seguros", "inLanguage": "es-PE", "publisher": { "@id": SITE + "/#organization" } }
       ]
-    }]
+    }, faqLd(homeFaq)]
   }));
 
   /* ===================== NOSOTROS ===================== */
@@ -291,7 +304,7 @@ ${cta('Si estás evaluando una decisión importante, vale la pena entender el ri
     <div class="section-head" data-reveal>
       <span class="eyebrow">Respaldo</span>
       <h2 class="h2" id="res-h">Intermediación estratégica ante el mercado asegurador</h2>
-      <p class="lead">…pero nuestra visión no se agota ahí. Acompañamos cada decisión, del análisis previo a la defensa en el siniestro.</p>
+      <p class="lead">Nuestra visión no se agota ahí: acompañamos cada decisión, del análisis previo a la defensa en el siniestro.</p>
     </div>
     ${solStrip}
   </div>
@@ -314,17 +327,17 @@ ${cta('Si estás evaluando una decisión importante, vale la pena entender el ri
     crumb: [['Inicio', '/'], ['Soluciones', '/soluciones']],
     eyebrow: 'Soluciones',
     h1: 'Intermediación estratégica ante el mercado asegurador',
-    lead: '…pero nuestra visión no se agota ahí. Acompañamos cada decisión: del análisis previo al diseño de coberturas, de la eficiencia de capital a la defensa en el siniestro.'
+    lead: 'Nuestra visión no se agota ahí: acompañamos cada decisión, del análisis previo al diseño de coberturas y de la eficiencia de capital a la defensa en el siniestro.'
   })}
 
 <section aria-labelledby="solg-h">
   <div class="container">
     <h2 class="visually-hidden" id="solg-h">Nuestras soluciones</h2>
     <div class="grid grid-4">
-      ${solIconCard(I.search, 'Análisis previo', 'Auditoría de riesgos', 'Lo que hoy parece un detalle, mañana reescribe sus resultados.', '/soluciones/auditoria-de-riesgos', 1)}
-      ${solIconCard(I.doc, 'Diseño a medida', 'Ingeniería de contratos', 'Estructuración para que la póliza responda a la naturaleza de su operación.', '/soluciones/ingenieria-de-contratos', 2)}
-      ${solIconCard(I.coin, 'Optimización TCOR', 'Eficiencia de capital', 'Capturamos costos no asegurables para sumar rentabilidad real a su caja.', '/soluciones/eficiencia-de-capital', 3)}
-      ${solIconCard(I.shield, 'Respuesta estructural', 'Defensa en siniestros', 'Representación técnica experta en el momento de la verdad.', '/soluciones/defensa-en-siniestros', 4)}
+      ${solNumCard('01', 'Análisis previo', 'Auditoría de riesgos', 'Lo que hoy parece un detalle, mañana reescribe sus resultados.', '/soluciones/auditoria-de-riesgos', 1)}
+      ${solNumCard('02', 'Diseño a medida', 'Ingeniería de contratos', 'Estructuración para que la póliza responda a la naturaleza de su operación.', '/soluciones/ingenieria-de-contratos', 2)}
+      ${solNumCard('03', 'Optimización TCOR', 'Eficiencia de capital', 'Capturamos costos no asegurables para sumar rentabilidad real a su caja.', '/soluciones/eficiencia-de-capital', 3)}
+      ${solNumCard('04', 'Respuesta estructural', 'Defensa en siniestros', 'Representación técnica experta en el momento de la verdad.', '/soluciones/defensa-en-siniestros', 4)}
     </div>
   </div>
 </section>
@@ -374,18 +387,17 @@ ${cta('¿Qué decisión está evaluando hoy? Conversemos sobre el riesgo antes.'
 <section aria-labelledby="s-intro">
   <div class="container">
     <div class="split">
-      <div data-reveal>
+      <div class="media-frame" data-reveal>
+        <img src="${p.image}" alt="${p.imageAlt}" loading="lazy" width="800" height="600">
+        <span class="media-tag">${p.tag}</span>
+      </div>
+      <div data-reveal data-d="2">
         <span class="eyebrow">El reto</span>
         <h2 class="h2" id="s-intro" style="margin-top:.8rem;">${p.introTitle}</h2>
         <hr class="divider-gold">
         <p class="lead">${p.intro}</p>
-      </div>
-      <div data-reveal data-d="2">
-        <div class="card">
-          <span class="card-icon">${p.icon}</span>
-          <h3>Qué resolvemos</h3>
-          <div class="prose" style="margin-top:.8rem;">${bullets(p.resuelve)}</div>
-        </div>
+        <span class="eyebrow" style="margin-top:1.7rem;">Qué resolvemos</span>
+        <div class="prose" style="margin-top:.9rem;">${bullets(p.resuelve)}</div>
       </div>
     </div>
   </div>
@@ -414,17 +426,19 @@ ${cta('¿Qué decisión está evaluando hoy? Conversemos sobre el riesgo antes.'
   </div>
 </section>
 
+${p.faq ? faqSection(p.faq, 'Preguntas frecuentes sobre ' + p.h1.toLowerCase()) : ''}
 ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación.')}`;
 
     writePage('soluciones/' + p.slug + '.html', shell({
       canonical: p.url, title: p.title, desc: p.desc, keywords: p.keywords, active: '/soluciones', main,
-      jsonld: [breadcrumb([['Inicio', '/'], ['Soluciones', '/soluciones'], [p.h1, p.url]]), serviceLd(p.h1, p.desc, p.url)]
+      jsonld: [breadcrumb([['Inicio', '/'], ['Soluciones', '/soluciones'], [p.h1, p.url]]), serviceLd(p.h1, p.desc, p.url), ...(p.faq ? [faqLd(p.faq)] : [])]
     }));
   }
 
   servicePage({
     slug: 'auditoria-de-riesgos', url: '/soluciones/auditoria-de-riesgos', tag: 'Análisis previo',
-    h1: 'Auditoría de riesgos', tagline: 'Lo que hoy parece un detalle, mañana reescribe sus resultados.', icon: I.search,
+    h1: 'Auditoría de riesgos', tagline: 'Lo que hoy parece un detalle, mañana reescribe sus resultados.',
+    image: '/assets/img/sol-auditoria.webp', imageAlt: 'Asesores de AXUM analizando la exposición de riesgos de una empresa',
     title: 'Auditoría de riesgos para empresas | AXUM Corredores de Seguros',
     desc: 'Auditoría de la exposición real frente a la evidente: identificamos brechas de cobertura, concentraciones de riesgo y supuestos críticos antes de transferir nada.',
     keywords: 'auditoría de riesgos empresas, mapeo de exposición, brechas de cobertura, gestión de riesgos Perú',
@@ -433,12 +447,18 @@ ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación
     resuelve: ['Mapeo de la exposición real frente a la que se da por evidente.', 'Brechas entre lo que está asegurado y lo que está expuesto.', 'Concentraciones de riesgo y dependencias críticas de la operación.', 'Supuestos y condiciones que podrían reescribir el resultado de un siniestro.'],
     howTitle: 'Del dato al entendimiento',
     abordaje: [['Levantar', 'Conocer la operación', 'Relevamos activos, procesos y contratos para entender de qué depende su resultado.'], ['Contrastar', 'Real vs. evidente', 'Comparamos la exposición efectiva con lo que las pólizas vigentes realmente cubren.'], ['Priorizar', 'Lo que mueve la aguja', 'Ordenamos las brechas por su impacto financiero, no por su probabilidad aparente.']],
-    cta: 'Antes de su próxima renovación, conviene auditar la exposición real.'
+    cta: 'Antes de su próxima renovación, conviene auditar la exposición real.',
+    faq: [
+      ['¿Qué es una auditoría de riesgos y para qué sirve?', 'Es una revisión técnica de la exposición real de su empresa frente a la que se da por evidente. Sirve para identificar brechas de cobertura, concentraciones de riesgo y supuestos críticos antes de contratar o renovar una póliza, de modo que la protección responda a lo que su operación realmente expone.'],
+      ['¿En qué se diferencia de la cotización de una aseguradora?', 'La aseguradora cotiza un producto; nosotros auditamos su operación. Primero entendemos de qué depende su resultado y dónde está expuesto, y recién entonces definimos qué transferir y cómo. El objetivo no es la prima más baja, sino la protección correcta.'],
+      ['¿Cuándo conviene hacerla?', 'Idealmente antes de cada renovación, ante un cambio relevante en la operación (nuevos activos, contratos o mercados) o cuando el directorio necesita entender el costo total del riesgo. Una auditoría a tiempo evita sorpresas el día del siniestro.']
+    ]
   });
 
   servicePage({
     slug: 'ingenieria-de-contratos', url: '/soluciones/ingenieria-de-contratos', tag: 'Diseño a medida',
-    h1: 'Ingeniería de contratos', tagline: 'Estructuración para que la póliza responda a la naturaleza de su operación.', icon: I.doc,
+    h1: 'Ingeniería de contratos', tagline: 'Estructuración para que la póliza responda a la naturaleza de su operación.',
+    image: '/assets/img/sol-ingenieria.webp', imageAlt: 'Revisión y firma de las condiciones de un contrato de seguro',
     title: 'Ingeniería de contratos de seguros | AXUM Corredores de Seguros',
     desc: 'Diseñamos y estructuramos las condiciones de su póliza —alcances, exclusiones y sublímites— para que respondan a la naturaleza real de su operación.',
     keywords: 'diseño de pólizas, condiciones de seguro a medida, cláusulas de cobertura, sublímites, broker corporativo Perú',
@@ -447,12 +467,18 @@ ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación
     resuelve: ['Redacción y revisión de coberturas, alcances y exclusiones.', 'Sublímites y condiciones particulares ajustados a su exposición.', 'Coherencia entre las pólizas y los contratos comerciales de la operación.', 'Lenguaje técnico que evita ambigüedades el día del siniestro.'],
     howTitle: 'La póliza como instrumento, no como formulario',
     abordaje: [['Traducir', 'Operación a contrato', 'Convertimos la realidad de su operación en condiciones contractuales precisas.'], ['Estructurar', 'Coberturas a medida', 'Definimos alcances, exclusiones y sublímites que responden a su exposición real.'], ['Validar', 'Sin zonas grises', 'Revisamos cada cláusula para que la cobertura responda cuando importa.']],
-    cta: '¿Su póliza responde a su operación o a un formulario?'
+    cta: '¿Su póliza responde a su operación o a un formulario?',
+    faq: [
+      ['¿Qué significa la "ingeniería de contratos" de seguro?', 'Es el diseño y la redacción técnica de las condiciones de su póliza —coberturas, exclusiones, sublímites y condiciones particulares— para que respondan a la naturaleza real de su operación, y no a un formato estándar.'],
+      ['¿Por qué no basta con una póliza estándar?', 'Una póliza estándar protege un riesgo estándar; su operación no lo es. Las ambigüedades, exclusiones genéricas o sublímites insuficientes suelen revelarse recién en el siniestro. Estructurar el contrato evita esas zonas grises.'],
+      ['¿Revisan también los contratos comerciales?', 'Sí. Verificamos la coherencia entre sus pólizas y las obligaciones de seguro de sus contratos comerciales, para que no existan brechas entre lo que firmó y lo que está realmente cubierto.']
+    ]
   });
 
   servicePage({
     slug: 'eficiencia-de-capital', url: '/soluciones/eficiencia-de-capital', tag: 'Optimización TCOR',
-    h1: 'Eficiencia de capital', tagline: 'Capturamos costos no asegurables para sumar rentabilidad real a su caja.', icon: I.coin,
+    h1: 'Eficiencia de capital', tagline: 'Capturamos costos no asegurables para sumar rentabilidad real a su caja.',
+    image: '/assets/img/sol-eficiencia.webp', imageAlt: 'Análisis financiero del Costo Total del Riesgo (TCOR) de una empresa',
     title: 'Eficiencia de capital y optimización del TCOR | AXUM',
     desc: 'Optimizamos el Costo Total del Riesgo (TCOR): equilibramos retención y transferencia y capturamos costos no asegurables para sumar rentabilidad real a su caja.',
     keywords: 'TCOR, costo total del riesgo, eficiencia de capital, retención vs transferencia, financiamiento de riesgos',
@@ -461,12 +487,18 @@ ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación
     resuelve: ['Medición del Costo Total del Riesgo (TCOR) de la operación.', 'Equilibrio entre lo que conviene retener y lo que conviene transferir.', 'Captura de costos no asegurables que hoy erosionan el resultado.', 'Impacto del programa de riesgos en la caja y la rentabilidad.'],
     howTitle: 'Del costo de la prima al costo del riesgo',
     abordaje: [['Medir', 'TCOR completo', 'Cuantificamos el costo total del riesgo, más allá de la prima.'], ['Decidir', 'Retener o transferir', 'Definimos qué riesgo conviene asumir y cuál transferir al mercado.'], ['Capturar', 'Rentabilidad real', 'Recuperamos costos no asegurables para que sumen a su caja.']],
-    cta: '¿Su directorio conoce el TCOR de la operación?'
+    cta: '¿Su directorio conoce el TCOR de la operación?',
+    faq: [
+      ['¿Qué es el TCOR (Costo Total del Riesgo)?', 'Es la métrica que reúne primas, riesgos retenidos, costos no asegurables y el costo de administrar el programa de seguros. Muestra cuánto le cuesta realmente el riesgo a la operación, más allá de la prima.'],
+      ['¿Cómo ayuda a mejorar la rentabilidad?', 'Al medir el costo total, decidimos con criterio qué conviene retener y qué transferir, y capturamos costos no asegurables que hoy erosionan el resultado. Eso libera capital y suma a su caja.'],
+      ['¿Aplica a empresas medianas o solo a grandes corporativos?', 'Aplica a cualquier empresa cuyo resultado pueda verse afectado por el riesgo. El enfoque se ajusta a la escala: lo importante es decidir sobre el costo total, no solo sobre la prima.']
+    ]
   });
 
   servicePage({
     slug: 'defensa-en-siniestros', url: '/soluciones/defensa-en-siniestros', tag: 'Respuesta estructural',
-    h1: 'Defensa en siniestros', tagline: 'Representación técnica experta en el momento de la verdad.', icon: I.shield,
+    h1: 'Defensa en siniestros', tagline: 'Representación técnica experta en el momento de la verdad.',
+    image: '/assets/img/sol-defensa.webp', imageAlt: 'Representación y negociación técnica de AXUM ante un siniestro',
     title: 'Defensa en siniestros — Representación técnica | AXUM',
     desc: 'Representación técnica experta cuando el siniestro ocurre: sustentamos el reclamo, negociamos con el asegurador y acompañamos hasta la indemnización justa.',
     keywords: 'defensa de siniestros, gestión de reclamos, ajuste de siniestros, indemnización justa, broker de seguros Perú',
@@ -475,7 +507,12 @@ ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación
     resuelve: ['Gestión y sustento técnico del reclamo desde el primer día.', 'Interlocución y negociación con el asegurador y el ajustador.', 'Defensa de la interpretación correcta de las condiciones de la póliza.', 'Acompañamiento hasta la indemnización justa y oportuna.'],
     howTitle: 'Cuando ocurre, importa quién lo sostiene',
     abordaje: [['Activar', 'Respuesta inmediata', 'Estructuramos el reclamo y aseguramos la evidencia desde el inicio.'], ['Sustentar', 'Argumento técnico', 'Construimos el sustento que respalda la cobertura contratada.'], ['Negociar', 'Indemnización justa', 'Representamos su posición hasta el cierre del siniestro.']],
-    cta: 'El mejor momento para preparar un siniestro es antes de que ocurra.'
+    cta: 'El mejor momento para preparar un siniestro es antes de que ocurra.',
+    faq: [
+      ['¿Qué hace un corredor durante un siniestro?', 'Asumimos la representación técnica del reclamo: estructuramos el sustento, aseguramos la evidencia, interlocutamos con el asegurador y el ajustador, y defendemos la correcta interpretación de la póliza hasta lograr una indemnización justa y oportuna.'],
+      ['Mi póliza está vigente, ¿por qué podrían rechazar el reclamo?', 'Estar asegurado no es estar protegido. Los rechazos suelen originarse en exclusiones, sublímites, obligaciones del asegurado incumplidas o definiciones ambiguas. Por eso la defensa empieza antes: con condiciones bien diseñadas y evidencia preparada.'],
+      ['¿Cuándo debo avisarles si ocurre un siniestro?', 'Lo antes posible. Las primeras horas son decisivas para preservar la evidencia y cumplir los plazos de la póliza. Mientras más temprano actuamos, más sólido es el sustento del reclamo.']
+    ]
   });
 
   /* ===================== SECTORES (index) ===================== */
@@ -489,28 +526,11 @@ ${cta(p.cta || 'Conversemos sobre su operación antes de la próxima renovación
 <section aria-labelledby="secg-h">
   <div class="container">
     <div class="section-head" data-reveal>
-      <span class="eyebrow">Especialidades</span>
-      <h2 class="h2" id="secg-h">Industrias donde el riesgo define el resultado</h2>
+      <span class="eyebrow">Sectores</span>
+      <h2 class="h2" id="secg-h">Industrias y segmentos donde el riesgo define el resultado</h2>
+      <p class="lead">Especialidades por industria y segmentos por tamaño de empresa: conocemos la naturaleza de cada operación y la traducimos en protección.</p>
     </div>
-    <div class="grid grid-3">
-      ${sectorCard('/sectores/mineria', '/assets/img/mineria.webp', 'Operación minera — gestión de riesgos AXUM', 'Minería', 'La tierra se mueve. Su balance, no.', 1)}
-      ${sectorCard('/sectores/energia', '/assets/img/energia.webp', 'Infraestructura de energía — continuidad del suministro', 'Energía', 'El entorno es incierto. La continuidad del suministro, una constante.', 2)}
-      ${sectorCard('/sectores/manufactura-construccion', '/assets/img/manufactura.webp', 'Planta de manufactura y construcción', 'Manufactura y Construcción', 'Los desvíos aparecen. Las metas se mantienen.', 3)}
-    </div>
-  </div>
-</section>
-
-<section class="section-alt" aria-labelledby="seg-h">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">Segmentos</span>
-      <h2 class="h2" id="seg-h">Cada tamaño de empresa enfrenta su propia exposición</h2>
-    </div>
-    <div class="grid grid-3">
-      ${segment('Corporativo', 'La exposición crece y la información falta.', '/sectores/corporativo', 1)}
-      ${segment('PYMES', 'Un error para perder el resultado de todo el año.', '/sectores/pymes', 2)}
-      ${segment('Agroindustria', 'El clima es variable. La exposición, permanente.', '/sectores/agroindustria', 3)}
-    </div>
+    ${sectorsBlock}
   </div>
 </section>
 
@@ -628,7 +648,7 @@ ${cta(p.cta || 'Conversemos sobre la exposición específica de su operación.')
 
   sectorPage({
     slug: 'corporativo', url: '/sectores/corporativo', kind: 'Segmento', h1: 'Corporativo',
-    tagline: 'La exposición crece y la información falta.', img: null,
+    tagline: 'La exposición crece y la información falta.', img: '/assets/img/corporativo.webp', alt: 'Edificios corporativos — gestión de riesgos empresariales',
     title: 'Seguros corporativos y gestión de riesgos | AXUM',
     desc: 'Programas de seguros corporativos en Perú: a mayor escala, mayor exposición y más decisiones. Convertimos información dispersa en criterio para el directorio.',
     keywords: 'seguros corporativos Perú, programa de seguros, gestión de riesgos empresariales, TCOR, gobierno de riesgos',
@@ -640,7 +660,7 @@ ${cta(p.cta || 'Conversemos sobre la exposición específica de su operación.')
 
   sectorPage({
     slug: 'pymes', url: '/sectores/pymes', kind: 'Segmento', h1: 'PYMES',
-    tagline: 'Un error para perder el resultado de todo el año.', img: null,
+    tagline: 'Un error para perder el resultado de todo el año.', img: '/assets/img/pymes.webp', alt: 'Pequeña y mediana empresa — protección con criterio',
     title: 'Seguros para PYMES — Protección con criterio | AXUM',
     desc: 'Gestión de riesgos y seguros para PYMES en Perú: una protección bien diseñada evita que un solo evento se lleve el resultado de todo el año.',
     keywords: 'seguros PYMES Perú, seguro para pequeña empresa, protección empresarial, gestión de riesgos PYME',
@@ -652,7 +672,7 @@ ${cta(p.cta || 'Conversemos sobre la exposición específica de su operación.')
 
   sectorPage({
     slug: 'agroindustria', url: '/sectores/agroindustria', kind: 'Segmento', h1: 'Agroindustria',
-    tagline: 'El clima es variable. La exposición, permanente.', img: null,
+    tagline: 'El clima es variable. La exposición, permanente.', img: '/assets/img/agroindustria.webp', alt: 'Agroindustria — del campo a la exportación',
     title: 'Seguros para Agroindustria | AXUM Corredores de Seguros',
     desc: 'Gestión de riesgos y seguros para agroindustria en Perú: clima, campo, planta y cadena de exportación. El clima es variable; la exposición, permanente.',
     keywords: 'seguros agroindustria Perú, seguro agrícola, riesgo climático, seguro de cosecha, exportación agroindustrial',

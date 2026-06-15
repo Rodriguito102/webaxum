@@ -27,10 +27,8 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/favicon.svg">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css?v=5">
+<link rel="preload" as="image" href="/assets/img/hero.webp" fetchpriority="high">
+<link rel="stylesheet" href="/assets/css/styles.css?v=14">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,23 +122,74 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es un corredor de seguros y en qué se diferencia de una aseguradora?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La aseguradora emite y asume el riesgo; el corredor lo representa a usted. AXUM asesora de forma independiente: auditamos su exposición, diseñamos la protección y lo acompañamos en el siniestro, defendiendo sus intereses ante el mercado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿AXUM trabaja con todas las aseguradoras?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Como corredores independientes, intermediamos ante el mercado asegurador para estructurar la mejor protección según su operación, sin atarnos a una sola compañía."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Para qué tipo de empresas trabajan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Acompañamos a empresas de distintos sectores y tamaños —de corporativos y operaciones de minería, energía o agroindustria a PYMES— que necesitan convertir el riesgo en decisiones con criterio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿La primera conversación tiene costo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. La primera conversación es técnica y sin compromiso: entendemos su operación y la decisión que tiene entre manos antes de cualquier propuesta."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="site-header">
-  <div class="topbar">Primero confianza, luego decisiones.</div>
+  <div class="topbar">
+    <div class="container">
+      <span class="tb-tag">Primero confianza, luego decisiones</span>
+      <span class="tb-meta">
+        <a href="mailto:contacto@axum.pe">contacto@axum.pe</a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a href="https://wa.me/51974789855" target="_blank" rel="noopener">+51 974 789 855</a>
+      </span>
+    </div>
+  </div>
   <div class="container">
-    <a class="brand" href="/" aria-label="AXUM Corredores de Seguros — Inicio"><img src="/assets/img/logo-axum.png" alt="AXUM Corredores de Seguros" width="205" height="45"></a>
-    <nav class="nav" aria-label="Navegación principal">
-      <ul class="nav-links">
-        <li><a href="/nosotros.html">Nosotros</a></li>
+    <div class="bar">
+      <a class="brand" href="/" aria-label="AXUM Corredores de Seguros — Inicio"><img src="/assets/img/logo-axum.png" alt="AXUM Corredores de Seguros" width="205" height="45"></a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="/nosotros.html">Nosotros</a></li>
         <li><a href="/soluciones.html">Soluciones</a></li>
         <li><a href="/sectores.html">Sectores</a></li>
         <li><a href="/apuntes.html">Apuntes</a></li>
         <li><a href="/contacto.html">Contacto</a></li>
-      </ul>
-      <a class="btn btn-gold-outline nav-cta" href="/contacto.html">Dialoguemos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-    </nav>
-    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+        </ul>
+        <a class="btn btn-gold-outline nav-cta" href="/contacto.html">Dialoguemos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil">
@@ -155,47 +204,26 @@
 </nav>
 <main>
 <section class="hero" aria-label="Presentación">
-  <div class="hero-bg">
-    <img src="/assets/img/hero.jpg" alt="" aria-hidden="true">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="/assets/img/hero.webp" alt="">
     <div class="hero-bg-overlay"></div>
   </div>
   <div class="container">
-    <div class="hero-grid2">
-      <div class="hero-copy">
-        <span class="eyebrow hero-eyebrow fade-up">Corredores de Seguros · Perú</span>
-        <h1 class="fade-up hero-title-upper">La decisión es <span class="accent">el primer seguro</span></h1>
-        <p class="hero-sub fade-up">Porque lo que hoy parece un detalle, mañana puede cambiar un resultado.</p>
-        <div class="hero-actions fade-up">
-          <a class="btn btn-primary btn-lg" href="/contacto.html">Agendar conversación <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-          <a class="btn btn-outline btn-lg" href="/nosotros.html">Cómo pensamos</a>
-        </div>
+    <div class="hero-inner">
+      <span class="eyebrow hero-eyebrow fade-up">Corredores de Seguros · Perú</span>
+      <h1 class="hero-title fade-up">La decisión es <em>el primer seguro</em></h1>
+      <p class="hero-sub fade-up">Porque lo que hoy parece un detalle, mañana puede cambiar un resultado.</p>
+      <div class="hero-actions fade-up">
+        <a class="btn btn-primary btn-lg" href="/contacto.html">Agendar conversación <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+        <a class="btn btn-outline btn-lg" href="/nosotros.html">Cómo pensamos</a>
       </div>
-      <div class="hero-visual fade-up">
-        <div class="hero-card">
-          <span class="hb-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4 8 10v12c0 11 7 18 16 22 9-4 16-11 16-22V10Z"/><path d="m17 24 5 5 9-10"/></svg></span>
-          <b>Método AXUM</b>
-          <span class="hero-card-sub">Entender · Priorizar · Decidir</span>
-          <p>Un proceso estructurado para identificar riesgos, priorizar decisiones y proteger lo que más valor tiene para su empresa.</p>
-        </div>
-      </div>
+      <p class="hero-note fade-up">Gestión estratégica de riesgos para empresas · Lima, Perú</p>
     </div>
-    <div class="hero-pillars fade-up">
-      <div class="pillar">
-        <span class="num">01</span>
-        <h3>Primero comprender</h3>
-        <p>Lo esencial suele permanecer oculto.</p>
-      </div>
-      <div class="pillar">
-        <span class="num">02</span>
-        <h3>Luego decidir</h3>
-        <p>No confundimos información con entendimiento.</p>
-      </div>
-      <div class="pillar">
-        <span class="num">03</span>
-        <h3>Proteger valor</h3>
-        <p>Lo valioso merece mejores decisiones.</p>
-      </div>
-    </div>
+    <ol class="hero-index fade-up">
+      <li><span class="hx-n">01</span><span class="hx-t"><b>Entender</b><span>Lo esencial suele permanecer oculto.</span></span></li>
+      <li><span class="hx-n">02</span><span class="hx-t"><b>Priorizar</b><span>No confundimos información con entendimiento.</span></span></li>
+      <li><span class="hx-n">03</span><span class="hx-t"><b>Decidir</b><span>Lo valioso merece mejores decisiones.</span></span></li>
+    </ol>
   </div>
 </section>
 
@@ -241,28 +269,32 @@
     <div class="section-head" data-reveal>
       <span class="eyebrow">Soluciones</span>
       <h2 class="h2" id="sol-h">Intermediación estratégica ante el mercado asegurador</h2>
-      <p class="lead">…pero nuestra visión no se agota ahí.</p>
+      <p class="lead">Nuestra visión no se agota ahí.</p>
     </div>
     <div class="grid grid-4">
       <article class="card" data-reveal data-d="1">
+        <span class="card-num">01</span>
         <span class="tag">Análisis previo</span>
         <h3>Auditoría de riesgos</h3>
         <p>Lo que hoy parece un detalle, mañana reescribe sus resultados.</p>
         <a class="link-arrow card-link" href="/soluciones/auditoria-de-riesgos.html">Ver solución <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </article>
       <article class="card" data-reveal data-d="2">
+        <span class="card-num">02</span>
         <span class="tag">Diseño a medida</span>
         <h3>Ingeniería de contratos</h3>
         <p>La póliza responde a la naturaleza de su operación.</p>
         <a class="link-arrow card-link" href="/soluciones/ingenieria-de-contratos.html">Ver solución <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </article>
       <article class="card" data-reveal data-d="3">
+        <span class="card-num">03</span>
         <span class="tag">Optimización TCOR</span>
         <h3>Eficiencia de capital</h3>
         <p>Capturamos costos no asegurables para sumar rentabilidad a su caja.</p>
         <a class="link-arrow card-link" href="/soluciones/eficiencia-de-capital.html">Ver solución <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </article>
       <article class="card" data-reveal data-d="4">
+        <span class="card-num">04</span>
         <span class="tag">Respuesta estructural</span>
         <h3>Defensa en siniestros</h3>
         <p>Representación técnica experta en el momento de la verdad.</p>
@@ -279,60 +311,63 @@
       <h2 class="h2" id="sec-h">Detrás de cada activo, siempre hay personas tomando decisiones</h2>
       <p class="lead">Nos ocupamos de asegurar a ambos.</p>
     </div>
-    <div class="grid grid-3">
-      <a class="sector-card" href="/sectores/mineria.html" data-reveal data-d="1">
-        <img src="/assets/img/mineria.webp" alt="Operación minera — gestión de riesgos AXUM" loading="lazy" width="640" height="427">
-        <div class="sc-body">
-          <span class="tag">Especialidad</span>
+    <div class="sectors-2col">
+      <span class="eyebrow ss-head" data-reveal>Especialidades</span>
+      <span class="eyebrow ss-head" data-reveal>Segmentos</span>
+      <a class="sector-split" href="/sectores/mineria.html" data-reveal data-d="1">
+        <div class="ss-body">
+          <span class="ss-num">01</span>
           <h3>Minería</h3>
           <p>La tierra se mueve. Su balance, no.</p>
-          <span class="link-arrow card-link">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
+          <span class="ss-link link-arrow">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
         </div>
+        <span class="ss-media"><img src="/assets/img/mineria.webp" alt="Operación minera — gestión de riesgos AXUM" loading="lazy" width="640" height="480"></span>
       </a>
-      <a class="sector-card" href="/sectores/energia.html" data-reveal data-d="2">
-        <img src="/assets/img/energia.webp" alt="Infraestructura de energía — continuidad del suministro" loading="lazy" width="640" height="427">
-        <div class="sc-body">
-          <span class="tag">Especialidad</span>
-          <h3>Energía</h3>
-          <p>El entorno es incierto. La continuidad del suministro, una constante.</p>
-          <span class="link-arrow card-link">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
-        </div>
-      </a>
-      <a class="sector-card" href="/sectores/manufactura-construccion.html" data-reveal data-d="3">
-        <img src="/assets/img/manufactura.webp" alt="Planta de manufactura y construcción" loading="lazy" width="640" height="427">
-        <div class="sc-body">
-          <span class="tag">Especialidad</span>
-          <h3>Manufactura y Construcción</h3>
-          <p>Los desvíos aparecen. Las metas se mantienen.</p>
-          <span class="link-arrow card-link">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
-        </div>
-      </a>
-    </div>
-    <div class="grid grid-3" style="margin-top:.5rem;">
-      <div class="segment" data-reveal data-d="1">
-        <span class="s-mark">◆</span>
-        <div>
+      <a class="sector-split" href="/sectores/corporativo.html" data-reveal data-d="1">
+        <div class="ss-body">
+          <span class="ss-num">01</span>
           <h3>Corporativo</h3>
           <p>La exposición crece y la información falta.</p>
-          <a class="link-arrow" href="/sectores/corporativo.html" style="margin-top:.7rem;">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+          <span class="ss-link link-arrow">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
         </div>
-      </div>
-      <div class="segment" data-reveal data-d="2">
-        <span class="s-mark">◆</span>
-        <div>
+        <span class="ss-media"><img src="/assets/img/corporativo.webp" alt="Edificios corporativos — gestión de riesgos empresariales" loading="lazy" width="640" height="480"></span>
+      </a>
+      <a class="sector-split" href="/sectores/energia.html" data-reveal data-d="2">
+        <div class="ss-body">
+          <span class="ss-num">02</span>
+          <h3>Energía</h3>
+          <p>El entorno es incierto. La continuidad del suministro, una constante.</p>
+          <span class="ss-link link-arrow">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
+        </div>
+        <span class="ss-media"><img src="/assets/img/energia.webp" alt="Infraestructura de energía — continuidad del suministro" loading="lazy" width="640" height="480"></span>
+      </a>
+      <a class="sector-split" href="/sectores/pymes.html" data-reveal data-d="2">
+        <div class="ss-body">
+          <span class="ss-num">02</span>
           <h3>PYMES</h3>
           <p>Un error para perder el resultado de todo el año.</p>
-          <a class="link-arrow" href="/sectores/pymes.html" style="margin-top:.7rem;">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+          <span class="ss-link link-arrow">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
         </div>
-      </div>
-      <div class="segment" data-reveal data-d="3">
-        <span class="s-mark">◆</span>
-        <div>
+        <span class="ss-media"><img src="/assets/img/pymes.webp" alt="Pequeña y mediana empresa — protección con criterio" loading="lazy" width="640" height="480"></span>
+      </a>
+      <a class="sector-split" href="/sectores/manufactura-construccion.html" data-reveal data-d="3">
+        <div class="ss-body">
+          <span class="ss-num">03</span>
+          <h3>Manufactura y Construcción</h3>
+          <p>Los desvíos aparecen. Las metas se mantienen.</p>
+          <span class="ss-link link-arrow">Ver sector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
+        </div>
+        <span class="ss-media"><img src="/assets/img/manufactura.webp" alt="Planta de manufactura y construcción" loading="lazy" width="640" height="480"></span>
+      </a>
+      <a class="sector-split" href="/sectores/agroindustria.html" data-reveal data-d="3">
+        <div class="ss-body">
+          <span class="ss-num">03</span>
           <h3>Agroindustria</h3>
           <p>El clima es variable. La exposición, permanente.</p>
-          <a class="link-arrow" href="/sectores/agroindustria.html" style="margin-top:.7rem;">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+          <span class="ss-link link-arrow">Ver segmento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
         </div>
-      </div>
+        <span class="ss-media"><img src="/assets/img/agroindustria.webp" alt="Agroindustria — del campo a la exportación" loading="lazy" width="640" height="480"></span>
+      </a>
     </div>
   </div>
 </section>
@@ -411,24 +446,46 @@
   </div>
 </section>
 
+<section class="section-alt" aria-labelledby="faq-h">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow center">Preguntas frecuentes</span>
+      <h2 class="h2" id="faq-h">Preguntas frecuentes</h2>
+    </div>
+    <div class="faq" data-reveal>
+      <details class="faq-item"><summary>¿Qué es un corredor de seguros y en qué se diferencia de una aseguradora?</summary><div class="faq-a"><p>La aseguradora emite y asume el riesgo; el corredor lo representa a usted. AXUM asesora de forma independiente: auditamos su exposición, diseñamos la protección y lo acompañamos en el siniestro, defendiendo sus intereses ante el mercado.</p></div></details>
+      <details class="faq-item"><summary>¿AXUM trabaja con todas las aseguradoras?</summary><div class="faq-a"><p>Como corredores independientes, intermediamos ante el mercado asegurador para estructurar la mejor protección según su operación, sin atarnos a una sola compañía.</p></div></details>
+      <details class="faq-item"><summary>¿Para qué tipo de empresas trabajan?</summary><div class="faq-a"><p>Acompañamos a empresas de distintos sectores y tamaños —de corporativos y operaciones de minería, energía o agroindustria a PYMES— que necesitan convertir el riesgo en decisiones con criterio.</p></div></details>
+      <details class="faq-item"><summary>¿La primera conversación tiene costo?</summary><div class="faq-a"><p>No. La primera conversación es técnica y sin compromiso: entendemos su operación y la decisión que tiene entre manos antes de cualquier propuesta.</p></div></details>
+    </div>
+  </div>
+</section>
 <section class="cta-band" aria-labelledby="cta-h">
-  <div class="narrow">
-    <span class="eyebrow center" data-reveal>Dialoguemos</span>
-    <h2 class="h2" id="cta-h" data-reveal data-d="1" style="margin-top:1rem;">Si estás evaluando una decisión importante, vale la pena entender el riesgo antes.</h2>
-    <div class="hero-actions" data-reveal data-d="2">
-      <a class="btn btn-white btn-lg" href="/contacto.html">Agendar conversación <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-      <a class="btn btn-light btn-lg" href="https://wa.me/51974789855">WhatsApp</a>
+  <div class="container">
+    <div class="cta-grid">
+      <div class="cta-main">
+        <img class="cta-logo logo-white" src="/assets/img/logo-axum.png" alt="AXUM Corredores de Seguros" width="190" height="42" data-reveal>
+        <span class="eyebrow" data-reveal data-d="1">Dialoguemos</span>
+        <h2 class="h2" id="cta-h" data-reveal data-d="2">Sabemos el peso que lleva cada decisión. Usted conoce su operación y su exposición; nosotros, la ingeniería del mercado para estructurarla. <em class="accent">Conversemos.</em></h2>
+      </div>
+      <div class="cta-actions" data-reveal data-d="3">
+        <a class="btn btn-white btn-lg" href="/contacto.html">Agendar espacio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+        <a class="cta-wa" href="https://wa.me/51974789855" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><span>o escríbenos por WhatsApp</span></a>
+      </div>
     </div>
   </div>
 </section>
 </main>
 <footer class="site-footer">
   <div class="container">
+    <div class="footer-lead">
+      <p class="fl-quote">Confianza para entender. <em>Criterio para decidir.</em></p>
+      <a class="btn btn-outline" href="/contacto.html">Iniciar una conversación <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+    </div>
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/" aria-label="AXUM — Inicio"><img src="/assets/img/logo-axum.png" alt="AXUM Corredores de Seguros" width="205" height="45"></a>
-        <p>Confianza para entender. Criterio para decidir.</p>
-        <a class="btn btn-outline" href="/contacto.html" style="margin-top:1.2rem;">Conversación técnica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+        <p>Corredores de seguros para empresas en Perú. Gestión estratégica de riesgos, del análisis previo a la defensa en el siniestro.</p>
       </div>
       <div class="footer-col">
         <h4>Explorar</h4>
@@ -466,6 +523,6 @@
   </div>
 </footer>
 <a class="wa-float" href="https://wa.me/51974789855" aria-label="Escríbenos por WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.96 4 5 8.96 5 15.04c0 2.13.6 4.12 1.64 5.81L5 28l7.34-1.6a11 11 0 0 0 3.7.64h.01C22.13 27.04 27 22.08 27 16S22.12 4 16.04 4Zm0 19.84c-1.18 0-2.34-.32-3.35-.92l-.24-.14-3.99.87.85-3.89-.16-.25a8.7 8.7 0 0 1-1.34-4.62c0-4.82 3.92-8.74 8.74-8.74 2.34 0 4.53.91 6.18 2.56a8.68 8.68 0 0 1 2.56 6.18c0 4.82-3.92 8.95-8.41 8.95Zm4.79-6.52c-.26-.13-1.55-.76-1.79-.85-.24-.09-.42-.13-.6.13-.17.26-.68.85-.83 1.02-.15.17-.31.2-.57.07-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.55-1.46-1.81-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.6-1.44-.82-1.97-.21-.52-.43-.45-.6-.46l-.5-.01c-.17 0-.46.07-.7.33-.24.26-.92.9-.92 2.2 0 1.3.94 2.55 1.07 2.73.13.17 1.85 2.82 4.48 3.95.63.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.25.22-.61.22-1.14.15-1.25-.06-.11-.24-.18-.5-.31Z"/></svg></a>
-<script src="/assets/js/main.js?v=5" defer></script>
+<script src="/assets/js/main.js?v=14" defer></script>
 </body>
 </html>

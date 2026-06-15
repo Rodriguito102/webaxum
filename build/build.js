@@ -14,7 +14,7 @@ const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
 /* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
-const ASSET_V = '5';
+const ASSET_V = '14';
 
 /* logical path -> real url (adds .html, home stays /) */
 function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
@@ -49,16 +49,27 @@ function header(active) {
     `<li><a href="${L(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a></li>`).join('\n        ');
   const mlinks = NAV.map(([t, h]) => `<li><a href="${L(h)}">${t}</a></li>`).join('\n    ');
   return `<header class="site-header">
-  <div class="topbar">Primero confianza, luego decisiones.</div>
+  <div class="topbar">
+    <div class="container">
+      <span class="tb-tag">Primero confianza, luego decisiones</span>
+      <span class="tb-meta">
+        <a href="mailto:${EMAIL}">${EMAIL}</a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a href="${WA}" target="_blank" rel="noopener">+51 974 789 855</a>
+      </span>
+    </div>
+  </div>
   <div class="container">
-    <a class="brand" href="/" aria-label="AXUM Corredores de Seguros — Inicio">${logo}</a>
-    <nav class="nav" aria-label="Navegación principal">
-      <ul class="nav-links">
-        ${links}
-      </ul>
-      <a class="btn btn-gold-outline nav-cta" href="${L('/contacto')}">Dialoguemos ${ARROW}</a>
-    </nav>
-    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    <div class="bar">
+      <a class="brand" href="/" aria-label="AXUM Corredores de Seguros — Inicio">${logo}</a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul class="nav-links">
+          ${links}
+        </ul>
+        <a class="btn btn-gold-outline nav-cta" href="${L('/contacto')}">Dialoguemos ${ARROW}</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil">
@@ -72,11 +83,14 @@ function header(active) {
 function footer() {
   return `<footer class="site-footer">
   <div class="container">
+    <div class="footer-lead">
+      <p class="fl-quote">Confianza para entender. <em>Criterio para decidir.</em></p>
+      <a class="btn btn-outline" href="${L('/contacto')}">Iniciar una conversación ${ARROW}</a>
+    </div>
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/" aria-label="AXUM — Inicio">${logo}</a>
-        <p>Confianza para entender. Criterio para decidir.</p>
-        <a class="btn btn-outline" href="${L('/contacto')}" style="margin-top:1.2rem;">Conversación técnica ${ARROW}</a>
+        <p>Corredores de seguros para empresas en Perú. Gestión estratégica de riesgos, del análisis previo a la defensa en el siniestro.</p>
       </div>
       <div class="footer-col">
         <h4>Explorar</h4>
@@ -119,12 +133,17 @@ function footer() {
 
 function cta(title, eyebrow) {
   return `<section class="cta-band" aria-labelledby="cta-h">
-  <div class="narrow">
-    <span class="eyebrow center" data-reveal>${eyebrow || 'Dialoguemos'}</span>
-    <h2 class="h2" id="cta-h" data-reveal data-d="1" style="margin-top:1rem;">${title}</h2>
-    <div class="hero-actions" data-reveal data-d="2">
-      <a class="btn btn-white btn-lg" href="${L('/contacto')}">Agendar conversación ${ARROW}</a>
-      <a class="btn btn-light btn-lg" href="${WA}">WhatsApp</a>
+  <div class="container">
+    <div class="cta-grid">
+      <div class="cta-main">
+        <img class="cta-logo logo-white" src="/assets/img/logo-axum.png" alt="AXUM Corredores de Seguros" width="190" height="42" data-reveal>
+        <span class="eyebrow" data-reveal data-d="1">${eyebrow || 'Dialoguemos'}</span>
+        <h2 class="h2" id="cta-h" data-reveal data-d="2">${title}</h2>
+      </div>
+      <div class="cta-actions" data-reveal data-d="3">
+        <a class="btn btn-white btn-lg" href="${L('/contacto')}">Agendar espacio ${ARROW}</a>
+        <a class="cta-wa" href="${WA}" target="_blank" rel="noopener">${I.wa}<span>o escríbenos por WhatsApp</span></a>
+      </div>
     </div>
   </div>
 </section>`;
@@ -177,9 +196,7 @@ ${p.keywords ? `<meta name="keywords" content="${p.keywords}">` : ''}
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/favicon.svg">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+${p.preloadImg ? `<link rel="preload" as="image" href="${p.preloadImg}" fetchpriority="high">` : ''}
 <link rel="stylesheet" href="/assets/css/styles.css?v=${ASSET_V}">
 ${jsonld}
 </head>
@@ -241,9 +258,18 @@ function articleLd(title, desc, url) {
     "image": OG, "mainEntityOfPage": SITE + L(url)
   };
 }
+function faqLd(items) {
+  return {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": items.map(([q, a]) => ({
+      "@type": "Question", "name": q,
+      "acceptedAnswer": { "@type": "Answer", "text": a }
+    }))
+  };
+}
 
 console.log('Building AXUM site…');
-require('./pages')({ ROOT, SITE, OG, WA, EMAIL, ARROW, I, L, shell, cta, pageHero, breadcrumb, serviceLd, articleLd, writePage });
+require('./pages')({ ROOT, SITE, OG, WA, EMAIL, ARROW, I, L, shell, cta, pageHero, breadcrumb, serviceLd, articleLd, faqLd, writePage });
 
 /* ---------- writer ---------- */
 function writePage(rel, html) {

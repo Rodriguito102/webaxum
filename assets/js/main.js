@@ -2,14 +2,21 @@
 (function () {
   'use strict';
 
-  /* Header state on scroll */
+  /* Scroll progress hairline */
+  var progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  document.body.appendChild(progress);
+
+  /* Header state on scroll + progress */
   var header = document.querySelector('.site-header');
   function onScroll() {
-    if (!header) return;
-    if (window.scrollY > 24) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
+    var st = window.scrollY || document.documentElement.scrollTop;
+    if (header) header.classList.toggle('scrolled', st > 24);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
   /* Mobile menu */
