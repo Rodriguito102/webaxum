@@ -13,6 +13,8 @@ const SITE = 'https://axum.pe';
 const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
+/* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
+const ASSET_V = '3';
 
 /* logical path -> real url (adds .html, home stays /) */
 function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
@@ -111,7 +113,7 @@ function footer() {
   </div>
 </footer>
 <a class="wa-float" href="${WA}" aria-label="Escríbenos por WhatsApp" target="_blank" rel="noopener">${I.wa32}</a>
-<script src="/assets/js/main.js" defer></script>`;
+<script src="/assets/js/main.js?v=${ASSET_V}" defer></script>`;
 }
 
 function cta(title, eyebrow) {
@@ -177,7 +179,7 @@ ${p.keywords ? `<meta name="keywords" content="${p.keywords}">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/styles.css?v=${ASSET_V}">
 ${jsonld}
 </head>
 <body>
