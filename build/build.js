@@ -14,10 +14,14 @@ const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
 /* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
-const ASSET_V = '20';
+const ASSET_V = '21';
 
 /* logical path -> real url (adds .html, home stays /) */
-function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
+function L(p) {
+  if (!p || p === '/') return '/';
+  if (p.includes('#')) return p;            // anchor links pass through untouched
+  return p.endsWith('.html') ? p : p + '.html';
+}
 
 /* icons */
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
@@ -34,6 +38,7 @@ const I = {
 };
 
 const NAV = [
+  ['Visión', '/#inicio'],
   ['Nosotros', '/nosotros'],
   ['Soluciones', '/soluciones'],
   ['Sectores', '/sectores'],
@@ -127,7 +132,6 @@ function footer() {
     </div>
   </div>
 </footer>
-<a class="wa-float" href="${WA}" aria-label="Escríbenos por WhatsApp" target="_blank" rel="noopener">${I.wa32}</a>
 <script src="/assets/js/main.js?v=${ASSET_V}" defer></script>`;
 }
 

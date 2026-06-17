@@ -577,8 +577,8 @@ body.menu-open .mobile-nav { transform: translateY(0); visibility:visible; }
   .split, .contact-grid { grid-template-columns:1fr; }
   .grid-3, .steps.cols { grid-template-columns:1fr; }
   .hero-index { grid-template-columns:1fr; }
-  .hero-index li + li { border-left:0; border-top:1px solid var(--line-2); padding-left:0; }
-  .hero-index li { padding-block:1.3rem; }
+  .hero-index li { padding: 1.35rem clamp(1.3rem,5vw,1.8rem); }
+  .hero-index li + li { border-left:0; border-top:1px solid var(--line-2); }
 }
 @media (max-width: 540px) {
   .grid-2, .grid-4 { grid-template-columns:1fr; }

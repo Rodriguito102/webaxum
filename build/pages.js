@@ -103,7 +103,7 @@ module.exports = function (ctx) {
     ['¿La primera conversación tiene costo?', 'No. La primera conversación es técnica y sin compromiso: entendemos su operación y la decisión que tiene entre manos antes de cualquier propuesta.']
   ];
 
-  const homeMain = `<section class="hero" aria-label="Presentación">
+  const homeMain = `<section class="hero" id="inicio" aria-label="Presentación">
   <div class="hero-bg" aria-hidden="true">
     <img src="/assets/img/hero.webp" alt="" width="1600" height="1067" fetchpriority="high" decoding="async">
     <div class="hero-bg-overlay"></div>
