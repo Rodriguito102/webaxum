@@ -14,7 +14,7 @@ const OG = SITE + '/assets/img/og-image.png';
 const WA = 'https://wa.me/51974789855';
 const EMAIL = 'contacto@axum.pe';
 /* cache-busting query for /assets/css and /assets/js (immutable cache in vercel.json) — bump on every CSS/JS change */
-const ASSET_V = '14';
+const ASSET_V = '20';
 
 /* logical path -> real url (adds .html, home stays /) */
 function L(p) { return (!p || p === '/') ? '/' : (p.endsWith('.html') ? p : p + '.html'); }
@@ -196,13 +196,16 @@ ${p.keywords ? `<meta name="keywords" content="${p.keywords}">` : ''}
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/favicon.svg">
 <link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/carlito-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/carlito-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${p.preloadImg ? `<link rel="preload" as="image" href="${p.preloadImg}" fetchpriority="high">` : ''}
 <link rel="stylesheet" href="/assets/css/styles.css?v=${ASSET_V}">
 ${jsonld}
 </head>
 <body>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
 ${header(p.active || '')}
-<main>
+<main id="main-content">
 ${p.main}
 </main>
 ${footer()}
@@ -269,12 +272,38 @@ function faqLd(items) {
 }
 
 console.log('Building AXUM site…');
+const written = [];
 require('./pages')({ ROOT, SITE, OG, WA, EMAIL, ARROW, I, L, shell, cta, pageHero, breadcrumb, serviceLd, articleLd, faqLd, writePage });
+buildSitemap();
 
 /* ---------- writer ---------- */
 function writePage(rel, html) {
   const full = path.join(ROOT, rel);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   fs.writeFileSync(full, html, 'utf8');
+  written.push(rel.replace(/\\/g, '/'));
   console.log('  ✓', rel);
+}
+
+/* ---------- sitemap (generated from the pages actually built) ---------- */
+function sitemapMeta(rel) {
+  if (rel === 'index.html') return { p: '1.0', c: 'weekly' };
+  if (rel === 'apuntes.html') return { p: '0.7', c: 'weekly' };
+  if (rel.startsWith('apuntes/')) return { p: '0.6', c: 'monthly' };
+  if (rel === 'soluciones.html' || rel === 'sectores.html') return { p: '0.9', c: 'monthly' };
+  if (rel.startsWith('soluciones/') || rel.startsWith('sectores/')) return { p: '0.8', c: 'monthly' };
+  return { p: '0.8', c: 'monthly' };
+}
+function buildSitemap() {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = written
+    .filter(rel => rel !== '404.html')
+    .map(rel => {
+      const loc = rel === 'index.html' ? SITE + '/' : SITE + '/' + rel;
+      const m = sitemapMeta(rel);
+      return `  <url><loc>${loc}</loc><lastmod>${today}</lastmod><changefreq>${m.c}</changefreq><priority>${m.p}</priority></url>`;
+    });
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
+  console.log('  ✓ sitemap.xml (' + urls.length + ' urls)');
 }

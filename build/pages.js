@@ -105,7 +105,7 @@ module.exports = function (ctx) {
 
   const homeMain = `<section class="hero" aria-label="Presentación">
   <div class="hero-bg" aria-hidden="true">
-    <img src="/assets/img/hero.webp" alt="">
+    <img src="/assets/img/hero.webp" alt="" width="1600" height="1067" fetchpriority="high" decoding="async">
     <div class="hero-bg-overlay"></div>
   </div>
   <div class="container">
@@ -171,32 +171,6 @@ module.exports = function (ctx) {
       <p class="lead">Nos ocupamos de asegurar a ambos.</p>
     </div>
     ${sectorsBlock}
-  </div>
-</section>
-
-<section class="section-alt" aria-labelledby="resp-h">
-  <div class="container">
-    <div class="split">
-      <div data-reveal>
-        <span class="eyebrow">Respaldo</span>
-        <h2 class="h2" id="resp-h" style="margin-top:.8rem;">No vendemos pólizas. Construimos criterio.</h2>
-        <hr class="divider-gold">
-        <p class="lead">Intermediación estratégica ante el mercado asegurador, con un método propio que antepone el entendimiento a la transacción. Lo valioso merece mejores decisiones.</p>
-        <div class="tag-row">
-          <span class="chip">Auditoría de exposición</span>
-          <span class="chip">Diseño de coberturas</span>
-          <span class="chip">Optimización del TCOR</span>
-          <span class="chip">Defensa en siniestros</span>
-        </div>
-      </div>
-      <div data-reveal data-d="2">
-        <div class="steps">
-          ${step('Comprender', '', 'Auditamos la exposición real de su operación frente a la que se da por evidente.', 1)}
-          ${step('Decidir', '', 'No confundimos información con entendimiento: priorizamos lo que mueve el resultado.', 2)}
-          ${step('Proteger', '', 'Representación técnica en el momento de la verdad, cuando el siniestro ocurre.', 3)}
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -388,7 +362,7 @@ ${cta('¿Qué decisión está evaluando hoy? Conversemos sobre el riesgo antes.'
   <div class="container">
     <div class="split">
       <div class="media-frame" data-reveal>
-        <img src="${p.image}" alt="${p.imageAlt}" loading="lazy" width="800" height="600">
+        <div class="mf-img"><img src="${p.image}" alt="${p.imageAlt}" loading="lazy" width="800" height="600"></div>
         <span class="media-tag">${p.tag}</span>
       </div>
       <div data-reveal data-d="2">
@@ -552,7 +526,7 @@ ${cta('Hablemos de la exposición específica de su sector.')}`;
   <div class="container">
     <div class="split">
       <div class="media-frame" data-reveal>
-        <img src="${p.img}" alt="${p.alt}" loading="lazy" width="900" height="675">
+        <div class="mf-img"><img src="${p.img}" alt="${p.alt}" loading="lazy" width="900" height="675"></div>
         <span class="media-tag">${p.h1}</span>
       </div>
       <div data-reveal data-d="2">
